@@ -31,7 +31,6 @@ def new_transaction(request):
             order = json.loads(request.body)
         except ValueError:
             order = request.POST
-        print order
         portfolio = Portfolio.initialize_session(request.session)
         order = portfolio.process_order(order, True if order['type'] == 'sell' else False) 
         return HttpResponse(json.dumps(dict(success=order,
