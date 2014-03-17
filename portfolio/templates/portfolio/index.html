@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+    <title>Stocks</title>
+   
+
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="{{STATIC_URL}}js/angular.min.js"></script>
+	<script src="{{STATIC_URL}}js/controllers.js"></script>
+	<style> body { padding-top: 70px; }</style>
+
+</head>
+
+<body>
+	<!-- Make sure all your bars are the first things in your <body> -->
+	    <header class="bar bar-nav">
+	      <h1 class="title">Stocks</h1>
+	    </header>
+
+
+
+   <div ng-app='myApp' class='container-fluid'>
+	   
+	   
+     <div ng-controller='PortfolioController'>
+       <h3>You current portfolio</h3> 
+	   <h4 ng-bind='message'></h4>
+	   <table class="table table-striped">
+	     <tr>
+	       <th>Ticker</th>
+	       <th>Units</th>
+		   <th>Purchase value in <span class="glyphicon glyphicon-usd"></span> </th>
+		   <th>Sell</th>
+	     </tr>
+		 <tr>
+	       <td>cash</td>
+		   <td>n/a</td>
+		   <td ng-bind='cash_balance'></td>
+		   <td>n/a</td>
+		   
+		 </tr>
+	     <tr ng-repeat='stock in purchases'>
+	       <td ng-bind='stock.ticker'></td>
+	       <td ng-bind='stock.units'></td>
+		   <td ng-bind='stock.purchase_price'></td>
+		   <td> <button class="btn btn-primary" ng-click="sellOrder(stock)"> Sell at market</button></td>
+	     </tr>
+	   </table>
+	   
+ 	  <h3>Make a new Purchase</h3> 
+	  
+  	  <form  name='OrderForm'> 
+  		  Ticker: <input ng-model="stock.ticker" required>
+  	  Units:  <input ng-model="stock.units" required>
+	 
+  	     <button class="btn btn-primary" ng-disabled='!OrderForm.$valid' ng-click="requestQuote()">Place order</button>
+  	  </form>
+ 	  
+      </div>
+	
+	  
+	  
+	  
+ 
+   </div>
+</body>
+</html>
