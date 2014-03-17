@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from portfolio.models import Portfolio
 
+'''Front End app lives at static/js/controllers.js'''
+
 def index(request):
     context = dict()
     return render(request, 'portfolio/index.html', context)
@@ -32,8 +34,10 @@ def new_transaction(request):
         print order
         portfolio = Portfolio.initialize_session(request.session)
         order = portfolio.process_order(order, True if order['type'] == 'sell' else False) 
-    return HttpResponse(json.dumps(dict(success=order,
+        return HttpResponse(json.dumps(dict(success=order,
                                         cash_balance=portfolio.cash_balance, 
                                         id=portfolio.pk, 
                                         purchases=[dict(ticker=p.ticker, units=p.units, purchase_price=p.purchase_price, id=p.pk) for p in portfolio.stockpurchase_set.all()])))
+    else:
+        return HttpResponse('Sorry post only')
 
