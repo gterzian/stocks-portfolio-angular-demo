@@ -1,17 +1,14 @@
 var app = angular.module('myApp', []);
 
-app.factory('portfolio', function($http, $q) {
+app.factory('Portfolio', function($http, $q) {
 	
-	var portfolio = {};
+	var Portfolio = {};
 	
 	var init = function () {
 		var deferred = $q.defer();
 	
-		$http.get('user/').success(function(data, status, headers, config) {
-				         this.cash_balance = data.cash_balance;
-						 this.user_id = data.id
-						 this.purchases = data.purchases;
-						 deferred.resolve(this)
+		$http.get('user/').success(function(portfolio, status, headers, config) {
+						 deferred.resolve(portfolio)
 					 
 			        }); 
 			
@@ -23,10 +20,7 @@ app.factory('portfolio', function($http, $q) {
 	  $http.post('/new_transaction/', order).success(
 		    function (portfolio) {
 				    if (portfolio.success) {
-					    
-						this.cash_balance = portfolio.cash_balance 
-						this.purchases = portfolio.purchases;
-						order_deferred.resolve(this)
+						order_deferred.resolve(portfolio)
 						
 				    }
 				    
@@ -36,22 +30,22 @@ app.factory('portfolio', function($http, $q) {
 	   return  order_deferred.promise
 	}
 	
-	portfolio.init = init
-	portfolio.place_order = place_order
-	return portfolio
+	Portfolio.init = init
+	Portfolio.place_order = place_order
+	return Portfolio
       
 });
 			
 			
-app.controller('PortfolioController', function($scope, $http, portfolio) {
-	portfolio.init().then(function(portfolio){
+app.controller('PortfolioController', function($scope, $http, Portfolio) {
+	Portfolio.init().then(function(portfolio){
 		$scope.cash_balance = portfolio.cash_balance 
 		$scope.purchases = portfolio.purchases;
 	})
 	$scope.stock = {ticker: '', units: ''};
 	
 	var transact = function (order) {
-		portfolio.place_order(order).then(function(portfolio){
+		Portfolio.place_order(order).then(function(portfolio){
 		    if (portfolio.success) {
 		    
 				$scope.cash_balance = portfolio.cash_balance 
