@@ -18,15 +18,9 @@ app.factory('Portfolio', function($http, $q) {
 	var place_order = function (order) {
 	  var order_deferred = $q.defer();	
 	  $http.post('/new_transaction/', order).success(
-		    function (portfolio) {
-				    if (portfolio.success) {
-						order_deferred.resolve(portfolio)
-						
-				    }
-				    
-				   }
-
-	        );
+		    function (portfolio) {	
+				order_deferred.resolve(portfolio)	    
+			});
 	   return  order_deferred.promise
 	}
 	
