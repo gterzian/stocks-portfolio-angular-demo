@@ -1,4 +1,4 @@
-benzinga-demo
+stock-portfolio-demo
 =============
 
 
