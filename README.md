@@ -1,4 +1,4 @@
-stock-portfolio-demo
+stock-portfolio-angularJS-demo
 =============
 
 
