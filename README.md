@@ -6,3 +6,4 @@ stock-portfolio-angularJS-demo
 
 
 Angular code lives within /static/js/controllers.js
+Django app is within /portfolio
